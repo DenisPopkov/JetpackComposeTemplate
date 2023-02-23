@@ -1,0 +1,17 @@
+ext.keystore = [
+        releaseAliase   : 'JetpackCompose',
+        releaseKeystore : 'app_keystore.jks',
+        releaseStorePass: 'your_store_password',
+        releaseKeyPass  : 'your_key_password'
+]
+
+android {
+    signingConfigs {
+        release {
+            storeFile file("$rootDir/app/keystore/$keystore.releaseKeystore")
+            storePassword "$keystore.releaseStorePass"
+            keyAlias "$keystore.releaseAliase"
+            keyPassword "$keystore.releaseKeyPass"
+        }
+    }
+}

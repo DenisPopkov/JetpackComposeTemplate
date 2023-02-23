@@ -1,0 +1,31 @@
+apply from: "$rootDir/versions.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    debugImplementation fileTree(dir: "libs", include: ["*-debug.aar"])
+    releaseImplementation fileTree(dir: "libs", include: ["*-release.aar"])
+
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.navigation"
+
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:$versions.datastore"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$versions.hilt"
+    implementation "androidx.hilt:hilt-navigation-compose:$versions.hiltComposeNavigation"
+    kapt "com.google.dagger:hilt-compiler:$versions.hilt"
+
+    // KotlinX Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$versions.serialization"
+
+    // LiveData
+    implementation "androidx.compose.runtime:runtime-livedata:$versions.livedata"
+
+    // Coil
+    implementation "io.coil-kt:coil-compose:$versions.coil"
+}

@@ -1,0 +1,27 @@
+apply from: "$rootDir/versions.gradle"
+apply from: "$rootDir/signing_configs.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+ext {
+    android {
+        compileSdkVersion versions.compileSdk
+        buildToolsVersion versions.buildTools
+
+        defaultConfig {
+            minSdkVersion versions.minSdk
+            targetSdkVersion versions.targetSdk
+
+            versionCode buildVersionCode()
+            versionName buildVersionName()
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_11
+            targetCompatibility JavaVersion.VERSION_11
+        }
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_11.toString()
+        }
+    }
+}
