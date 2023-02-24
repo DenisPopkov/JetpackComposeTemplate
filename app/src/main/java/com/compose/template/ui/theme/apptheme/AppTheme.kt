@@ -12,12 +12,14 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.compose.template.dataStore
 import com.compose.template.datastore.ThemeViewModel
 import com.compose.template.ui.theme.color.DarkColorScheme
 import com.compose.template.ui.theme.color.LightColorScheme
 import com.compose.template.ui.theme.typography.LocalTypography
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun AppTheme(
@@ -29,6 +31,7 @@ fun AppTheme(
     val viewModel = remember { ThemeViewModel(context.dataStore) }
     val state = viewModel.state.observeAsState()
     val value = state.value ?: isSystemInDarkTheme()
+    val systemUiController = rememberSystemUiController()
 
     LaunchedEffect(viewModel) { viewModel.request() }
     DarkThemeValue.current.value = value
@@ -41,13 +44,14 @@ fun AppTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-        }
+
+    DisposableEffect(systemUiController, darkTheme) {
+        systemUiController.setSystemBarsColor(
+            color = colorScheme.surface,
+            darkIcons = !darkTheme
+        )
+
+        onDispose { }
     }
 
     MaterialTheme(

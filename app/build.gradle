@@ -7,6 +7,7 @@ apply from: "$rootDir/versions.gradle"
 apply from: "$rootDir/base_android_module_config.gradle"
 apply from: "$rootDir/dependencies.gradle"
 apply from: "$rootDir/ui_dependencies.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
 
@@ -26,7 +27,6 @@ android {
     buildFeatures {
         compose true
         buildFeatures {
-            compose true
             kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.material.ExperimentalMaterialApi"
             kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"
             kotlinOptions.freeCompilerArgs += "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi"

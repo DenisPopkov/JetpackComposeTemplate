@@ -2,12 +2,11 @@ package com.compose.template
 
 import android.content.Context
 import android.os.Bundle
-import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -15,34 +14,28 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.compose.template.datastore.ThemeViewModel
 import com.compose.template.navigation.NavGraph
 import com.compose.template.ui.components.BottomNavScreen
 import com.compose.template.ui.theme.apptheme.AppTheme
-import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.compose.template.utills.plus
 import dagger.hilt.android.AndroidEntryPoint
 
 val Context.dataStore by preferencesDataStore("settings")
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +81,8 @@ fun MainScreen() {
             color = MaterialTheme.colorScheme.background
         ) {
             Scaffold(bottomBar = { BottomNavScreen(navController) }) { paddingValues ->
-                Column(modifier = Modifier.padding(paddingValues)) {
+                Column(modifier = Modifier
+                    .padding(paddingValues + PaddingValues(16.dp))) {
                     NavGraph(navController)
                 }
             }
