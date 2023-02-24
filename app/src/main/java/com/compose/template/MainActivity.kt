@@ -4,27 +4,29 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import dagger.hilt.android.AndroidEntryPoint
 import com.compose.template.datastore.ThemeViewModel
 import com.compose.template.navigation.NavGraph
 import com.compose.template.ui.components.BottomNavScreen
 import com.compose.template.ui.theme.apptheme.AppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 val Context.dataStore by preferencesDataStore("settings")
 
@@ -32,8 +34,9 @@ val Context.dataStore by preferencesDataStore("settings")
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
 
         setContent {
             MainScreen()
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun MainScreen() {
+
     AppTheme {
 
         val context = LocalContext.current
@@ -67,23 +71,15 @@ fun MainScreen() {
             viewModel.request()
         }
 
-        Surface(modifier = Modifier.background(MaterialTheme.colors.background).fillMaxSize()) {
-            SetStatusBarColor()
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
             Scaffold(bottomBar = { BottomNavScreen(navController) }) { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
                     NavGraph(navController)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun SetStatusBarColor() {
-    val systemUiController = rememberSystemUiController()
-    val color = MaterialTheme.colors.background
-
-    SideEffect {
-        systemUiController.setStatusBarColor(color = color)
     }
 }

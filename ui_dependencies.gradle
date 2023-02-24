@@ -12,6 +12,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-placeholder:$versions.accompanist"
     implementation "com.google.accompanist:accompanist-navigation-animation:$versions.accompanist"
     implementation "com.google.accompanist:accompanist-navigation-material:$versions.accompanist"
+    implementation "com.google.accompanist:accompanist-insets:$versions.accompanist"
 
     // Compose
     implementation "androidx.core:core-ktx:$versions.core"

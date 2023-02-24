@@ -1,2 +1,4 @@
 <resources>
+    <string name="home">"Главная"</string>
+    <string name="settings">"Настройки"</string>
 </resources>
