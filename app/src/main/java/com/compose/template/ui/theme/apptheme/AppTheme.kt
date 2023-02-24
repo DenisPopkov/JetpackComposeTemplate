@@ -1,7 +1,6 @@
 package com.compose.template.ui.theme.apptheme
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -9,11 +8,8 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
 import com.compose.template.dataStore
 import com.compose.template.datastore.ThemeViewModel
 import com.compose.template.ui.theme.color.DarkColorScheme
@@ -28,6 +24,7 @@ fun AppTheme(
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current
+    val view = LocalView.current
     val viewModel = remember { ThemeViewModel(context.dataStore) }
     val state = viewModel.state.observeAsState()
     val value = state.value ?: isSystemInDarkTheme()
@@ -45,14 +42,14 @@ fun AppTheme(
         else -> LightColorScheme
     }
 
-    DisposableEffect(systemUiController, darkTheme) {
-        systemUiController.setSystemBarsColor(
-            color = colorScheme.surface,
-            darkIcons = !darkTheme
-        )
-
-        onDispose { }
-    }
+//    DisposableEffect(systemUiController, darkTheme) {
+//        systemUiController.setSystemBarsColor(
+//            color = colorScheme.surface,
+//            darkIcons = !darkTheme
+//        )
+//
+//        onDispose { }
+//    }
 
     MaterialTheme(
         colorScheme = colorScheme,
