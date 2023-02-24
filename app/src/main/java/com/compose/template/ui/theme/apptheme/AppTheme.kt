@@ -30,9 +30,8 @@ fun AppTheme(
     val state = viewModel.state.observeAsState()
     val value = state.value ?: isSystemInDarkTheme()
 
-//    LaunchedEffect(viewModel) { viewModel.request() }
-//
-//    DarkThemeValue.current.value = value
+    LaunchedEffect(viewModel) { viewModel.request() }
+    DarkThemeValue.current.value = value
 
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
