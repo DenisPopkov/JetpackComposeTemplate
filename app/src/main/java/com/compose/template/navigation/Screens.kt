@@ -18,5 +18,6 @@ sealed class Screens(val route: String) {
     object Settings : Screens("settings") {
         fun settingsWithIdRoute() = "${Settings.route}?id={id}"
     }
+
     object ProfileSettings : Screens("settings_profile")
 }

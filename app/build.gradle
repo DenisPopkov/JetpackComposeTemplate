@@ -54,20 +54,4 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    flavorDimensions("server")
-    productFlavors {
-        create("dev") {
-            dimension("server")
-            buildConfigField("String", "SERVER_URL", '""')
-            buildConfigField("String", "NEW_FEATURES_SERVER_URL", '""')
-        }
-
-        create("prod") {
-            applicationId "com.compose.template"
-            dimension("server")
-            buildConfigField("String", "SERVER_URL", '""')
-            buildConfigField("String", "NEW_FEATURES_SERVER_URL", '""')
-        }
-    }
 }

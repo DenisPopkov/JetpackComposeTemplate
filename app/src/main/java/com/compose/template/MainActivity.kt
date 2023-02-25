@@ -81,8 +81,10 @@ fun MainScreen() {
             color = MaterialTheme.colorScheme.background
         ) {
             Scaffold(bottomBar = { BottomNavScreen(navController) }) { paddingValues ->
-                Column(modifier = Modifier
-                    .padding(paddingValues + PaddingValues(16.dp))) {
+                Column(
+                    modifier = Modifier
+                        .padding(paddingValues + PaddingValues(16.dp))
+                ) {
                     NavGraph(navController)
                 }
             }

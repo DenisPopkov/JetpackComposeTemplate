@@ -1,6 +1,5 @@
 package com.compose.template.ui.theme.dimensions
 
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -13,5 +12,3 @@ data class AppDimensions(
     val paddingXXL: Dp = 24.dp,
     val paddingXXXL: Dp = 36.dp
 )
-
-internal val LocalDimensions = staticCompositionLocalOf { AppDimensions() }

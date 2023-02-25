@@ -1,6 +1,5 @@
 package com.compose.template.ui.theme.shape
 
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -10,5 +9,3 @@ data class AppShapes(
     val shapeLarge: Dp = 12.dp,
     val shapeXL: Dp = 24.dp
 )
-
-internal val LocalShapes = staticCompositionLocalOf { AppShapes() }
