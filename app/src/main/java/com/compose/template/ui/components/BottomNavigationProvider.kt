@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -76,7 +77,9 @@ fun BottomNavScreen(
                 label = {
                     Text(
                         text = stringResource(tabItem.iconTextId),
-                        fontSize = 15.sp
+                        fontSize = 15.sp,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 1
                     )
                 }
             )
