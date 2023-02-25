@@ -1,9 +1,6 @@
 apply from: "$rootDir/versions.gradle"
 
 dependencies {
-//    implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    debugImplementation fileTree(dir: "libs", include: ["*-debug.aar"])
-//    releaseImplementation fileTree(dir: "libs", include: ["*-release.aar"])
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.navigation"

@@ -1,22 +1,23 @@
 package com.compose.template.ui.components
 
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -25,13 +26,12 @@ import com.compose.template.R
 
 sealed class TabItem(
     val route: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
+    val icon: ImageVector,
     val iconTextId: Int
 ) {
-    object HomeTab : TabItem("home_tab", Icons.Rounded.Home, Icons.Outlined.Home, R.string.home)
+    object HomeTab : TabItem("home_tab", Icons.Outlined.Home, R.string.home)
     object SettingsTab :
-        TabItem("settings_tab", Icons.Rounded.Settings, Icons.Outlined.Settings, R.string.settings)
+        TabItem("settings_tab", Icons.Outlined.Settings, R.string.settings)
 }
 
 private val tabItems = listOf(
@@ -53,36 +53,44 @@ fun BottomNavScreen(
         }
     }
 
-    NavigationBar(modifier = modifier) {
+    val navigationBarItemColors = NavigationBarItemDefaults.colors(
+        indicatorColor = getIndicatorColor(),
+        selectedTextColor = MaterialTheme.colorScheme.onSurface
+    )
+
+    NavigationBar(modifier = modifier.height(100.dp)) {
         tabItems.forEach { tabItem ->
             val selected = selectionMap.getOrDefault(tabItem, false)
             NavigationBarItem(
                 selected = selected,
+                colors = navigationBarItemColors,
                 onClick = { navigate(navController, tabItem.route) },
                 icon = {
-                    val icon = if (selected) {
-                        tabItem.selectedIcon
+                    val iconTint = if (selected) {
+                        MaterialTheme.colorScheme.background
                     } else {
-                        tabItem.unselectedIcon
+                        MaterialTheme.colorScheme.onSurfaceVariant
                     }
-                    Icon(imageVector = icon, contentDescription = null)
+                    Icon(imageVector = tabItem.icon, contentDescription = null, tint = iconTint)
                 },
                 label = {
-                    val textWeight = if (selected) {
-                        FontWeight.Bold
-                    } else {
-                        FontWeight.Medium
-                    }
                     Text(
                         text = stringResource(tabItem.iconTextId),
-                        fontWeight = textWeight,
-                        fontFamily = FontFamily.Default,
-                        fontSize = 14.sp
+                        fontSize = 15.sp
                     )
                 }
             )
         }
     }
+}
+
+@Composable
+private fun getIndicatorColor(): Color {
+    val indicator = MaterialTheme.colorScheme.outline
+    val indicatorRed = indicator.red + 0.09f
+    val indicatorGreen = indicator.green + 0.1f
+    val indicatorBlue = indicator.blue + 0.06f
+    return Color(indicatorRed, indicatorGreen, indicatorBlue)
 }
 
 private fun navigate(navController: NavHostController, route: String) {

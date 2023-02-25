@@ -9,13 +9,11 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import com.compose.template.dataStore
 import com.compose.template.datastore.ThemeViewModel
 import com.compose.template.ui.theme.color.DarkColorScheme
 import com.compose.template.ui.theme.color.LightColorScheme
-import com.compose.template.ui.theme.typography.LocalTypography
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.compose.template.ui.theme.typography.AppTypography
 
 @Composable
 fun AppTheme(
@@ -24,11 +22,9 @@ fun AppTheme(
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current
-    val view = LocalView.current
     val viewModel = remember { ThemeViewModel(context.dataStore) }
     val state = viewModel.state.observeAsState()
     val value = state.value ?: isSystemInDarkTheme()
-    val systemUiController = rememberSystemUiController()
 
     LaunchedEffect(viewModel) { viewModel.request() }
     DarkThemeValue.current.value = value
@@ -42,18 +38,9 @@ fun AppTheme(
         else -> LightColorScheme
     }
 
-//    DisposableEffect(systemUiController, darkTheme) {
-//        systemUiController.setSystemBarsColor(
-//            color = colorScheme.surface,
-//            darkIcons = !darkTheme
-//        )
-//
-//        onDispose { }
-//    }
-
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = LocalTypography.current.Typography,
+        typography = AppTypography().Typography,
         content = content
     )
 }

@@ -7,9 +7,10 @@ apply from: "$rootDir/versions.gradle"
 apply from: "$rootDir/base_android_module_config.gradle"
 apply from: "$rootDir/dependencies.gradle"
 apply from: "$rootDir/ui_dependencies.gradle"
-apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
+
+    namespace 'com.compose.template'
 
     compileSdk versions.compileSdk
     buildToolsVersion versions.buildTools
@@ -58,19 +59,19 @@ android {
         }
     }
 
-    flavorDimensions("server")
-    productFlavors {
-        create("dev") {
-            dimension("server")
-            buildConfigField("String", "SERVER_URL", '""')
-            buildConfigField("String", "NEW_FEATURES_SERVER_URL", '""')
-        }
-
-        create("prod") {
-            applicationId "com.compose.template"
-            dimension("server")
-            buildConfigField("String", "SERVER_URL", '""')
-            buildConfigField("String", "NEW_FEATURES_SERVER_URL", '""')
-        }
-    }
+//    flavorDimensions("server")
+//    productFlavors {
+//        create("dev") {
+//            dimension("server")
+//            buildConfigField("String", "SERVER_URL", '""')
+//            buildConfigField("String", "NEW_FEATURES_SERVER_URL", '""')
+//        }
+//
+//        create("prod") {
+//            applicationId "com.compose.template"
+//            dimension("server")
+//            buildConfigField("String", "SERVER_URL", '""')
+//            buildConfigField("String", "NEW_FEATURES_SERVER_URL", '""')
+//        }
+//    }
 }
