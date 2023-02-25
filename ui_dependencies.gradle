@@ -2,6 +2,8 @@ apply from: "$rootDir/versions.gradle"
 
 dependencies {
 
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     // Accompanist
     implementation "com.google.accompanist:accompanist-systemuicontroller:$versions.accompanist"
     implementation "com.google.accompanist:accompanist-pager:$versions.accompanist"
