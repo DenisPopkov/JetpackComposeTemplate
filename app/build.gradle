@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply from: "$rootDir/versions.gradle"
 apply from: "$rootDir/base_android_module_config.gradle"
 apply from: "$rootDir/dependencies.gradle"
 apply from: "$rootDir/ui_dependencies.gradle"

@@ -1,14 +1,13 @@
 package com.compose.template.ui.components
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,22 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.compose.template.R
-import com.compose.template.utills.calculateIndicatorColor
 
 sealed class TabItem(
     val route: String,
-    val icon: ImageVector,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
     val iconTextId: Int
 ) {
-    object HomeTab : TabItem("home_tab", Icons.Outlined.Home, R.string.home)
+    object HomeTab : TabItem("home_tab", Icons.Filled.Home, Icons.Outlined.Home, R.string.home)
     object SettingsTab :
-        TabItem("settings_tab", Icons.Outlined.Settings, R.string.settings)
+        TabItem("settings_tab", Icons.Filled.Settings, Icons.Outlined.Settings, R.string.settings)
 }
 
 private val tabItems = listOf(
@@ -54,30 +51,23 @@ fun BottomNavScreen(
         }
     }
 
-    val navigationBarItemColors = NavigationBarItemDefaults.colors(
-        indicatorColor = calculateIndicatorColor(),
-        selectedTextColor = MaterialTheme.colorScheme.onSurface
-    )
-
-    NavigationBar(modifier = modifier.height(100.dp)) {
+    NavigationBar(modifier = modifier) {
         tabItems.forEach { tabItem ->
             val selected = selectionMap.getOrDefault(tabItem, false)
             NavigationBarItem(
                 selected = selected,
-                colors = navigationBarItemColors,
                 onClick = { navigate(navController, tabItem.route) },
                 icon = {
-                    val iconTint = if (selected) {
-                        MaterialTheme.colorScheme.background
+                    val icon = if (selected) {
+                        tabItem.selectedIcon
                     } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
+                        tabItem.unselectedIcon
                     }
-                    Icon(imageVector = tabItem.icon, contentDescription = null, tint = iconTint)
+                    Icon(imageVector = icon, contentDescription = null)
                 },
                 label = {
                     Text(
                         text = stringResource(tabItem.iconTextId),
-                        fontSize = 15.sp,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1
                     )

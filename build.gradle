@@ -2,7 +2,7 @@ buildscript {
     ext {
         application_version = "7.4.1"
         kotlin_version = "1.8.10"
-        hilt_version = "2.45"
+        hilt_version = "2.44"
     }
 
     dependencies {
