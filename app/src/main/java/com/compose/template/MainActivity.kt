@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -28,6 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import com.compose.template.datastore.ThemeViewModel
 import com.compose.template.navigation.NavGraph
 import com.compose.template.ui.components.BottomNavScreen
+import com.compose.template.ui.components.FloatingButton
 import com.compose.template.ui.theme.apptheme.AppTheme
 import com.compose.template.utills.plus
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,7 +82,11 @@ fun MainScreen() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Scaffold(bottomBar = { BottomNavScreen(navController) }) { paddingValues ->
+            Scaffold(
+                bottomBar = { BottomNavScreen(navController) },
+                floatingActionButton = { FloatingButton {} },
+                floatingActionButtonPosition = FabPosition.Center,
+            ) { paddingValues ->
                 Column(
                     modifier = Modifier
                         .padding(paddingValues + PaddingValues(16.dp))
