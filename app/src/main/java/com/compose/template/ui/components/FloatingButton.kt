@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 fun FloatingButton(onClick: () -> Unit) {
     LargeFloatingActionButton(
         onClick = { onClick.invoke() },
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        containerColor = MaterialTheme.colorScheme.primary,
     ) {
-        Icon(imageVector = Icons.Filled.Add, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
+        Icon(imageVector = Icons.Filled.Add, contentDescription = null, tint = MaterialTheme.colorScheme.background)
     }
 }
